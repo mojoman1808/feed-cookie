@@ -19,32 +19,30 @@
           </select>
           
        
-          <!-- <button @click="deselectedUser"></button> -->
           <button @click="addFeeding">Füttern</button>
           <select v-model="selectedUser">
             <option disabled value="null">Name auswählen</option>
-          <option
-            :value="user" 
-            :key="user.id"
-            v-for="user in users">{{ user.name }}
-          </option>
+            <option
+              :value="user" 
+              :key="user.id"
+              v-for="user in users">{{ user.name }}
+            </option>
           </select>
           
         </div>
         <ul>
-            <feed-cookie
-            v-for="feeding in feedings"
-            :feeding="feeding"
-            :key="feeding.hour">
-            </feed-cookie>
-          </ul>
+          <feed-cookie
+          v-for="feeding in feedings"
+          :feeding="feeding"
+          :key="feeding.hour">
+          </feed-cookie>
+        </ul>
     </section>
 </template>
 
 <script>
 
 import FeedCookie from './components/FeedCookie.vue'
-// import FeedingPersons from './components/FeedingPersons.vue';
 export default {
   components: { FeedCookie},
     data() {
@@ -116,9 +114,6 @@ export default {
 
         updateLastFeeding(lastFeeding) {
             this.timeDifference = new Date() - lastFeeding;
-            // console.log(lastFeeding);
-            // console.log(lastFeeding);
-            // console.log(this.timeDifference);
         },
         addFeeding() {
           if (!this.selectedUser) {
@@ -129,7 +124,6 @@ export default {
                 hour: new Date().toLocaleString('DE'),
                 timeInHours: new Date()
             };
-            // console.log(feeding);
 
             this.updateLastFeeding(feeding.timeInHours);
 
@@ -219,21 +213,14 @@ header {
 
 #feed-cookie {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  margin: 3rem;
+  margin: 0;
+  padding: 0;
   border-radius: 10px;
   padding: 1rem;
   text-align: center;
   background-color: #f4f4f4;
   min-width: 360px;
 }
-
-/* #feed-cookie {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  margin: 3rem;
-  border-radius: 10px;
-  padding: 1rem;
-  text-align: center;
-} */
 
 h2 {
   font-size: 2rem;
