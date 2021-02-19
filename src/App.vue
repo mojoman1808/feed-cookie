@@ -17,9 +17,7 @@
           </select>
           <button @click="deletUser">Delet Cookie-Feeder</button>
        
-        
-
-        <button @click="deselectedUser"></button>
+        <!-- <button @click="deselectedUser"></button> -->
         <h2 v-if="timeDifference">{{ msToTime(this.maxTime - this.timeDifference) }}</h2>
         <select v-model="selectedUser">
           <option disabled value="null">Name auswählen</option>
@@ -98,7 +96,7 @@ export default {
           this.enterUserValue = '';
         },
         msToTime(timeDifference) {
-          console.log(timeDifference);
+          
             let seconds = Math.floor((timeDifference / 1000) % 60),
                 minutes = Math.floor((timeDifference / (1000 * 60)) % 60),
                 hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
@@ -128,7 +126,7 @@ export default {
                 hour: new Date().toLocaleString('DE'),
                 timeInHours: new Date()
             };
-            console.log(feeding);
+            // console.log(feeding);
 
             this.updateLastFeeding(feeding.timeInHours);
 
@@ -152,13 +150,13 @@ export default {
                 this.feedings = JSON.parse(items);
                 const a = new Date(this.feedings[0].timeInHours) 
                 this.updateLastFeeding(a);
+                
             }
 
             const users = localStorage.getItem('id');
             if (users) {
                this.users = JSON.parse(users);
             }
-           
         },
     },
 
