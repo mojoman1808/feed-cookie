@@ -19,7 +19,7 @@
           </select>
           
        
-          <button @click="addFeeding">Füttern</button>
+          <button @click="addFeeding">Feed Cookie ;)</button>
           <select v-model="selectedUser">
             <option disabled value="null">Name auswählen</option>
             <option
