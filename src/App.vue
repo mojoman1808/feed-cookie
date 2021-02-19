@@ -8,6 +8,7 @@
           <button @click="addUser">Neuer Cookie-Feeder</button>
           <input type="text" v-model="enterUserValue">
           <!-- delet section -->
+          <button @click="deletUser">Delet Cookie-Feeder</button>
           <select v-model="deselectedUser">
             <option disabled value="null">Name auswählen</option>
             <option
@@ -16,10 +17,10 @@
               v-for="user in users">{{ user.name }}
             </option>
           </select>
-          <button @click="deletUser">Delet Cookie-Feeder</button>
+          
        
           <!-- <button @click="deselectedUser"></button> -->
-        
+          <button @click="addFeeding">Füttern</button>
           <select v-model="selectedUser">
             <option disabled value="null">Name auswählen</option>
           <option
@@ -28,7 +29,6 @@
             v-for="user in users">{{ user.name }}
           </option>
           </select>
-          <button @click="addFeeding">Füttern</button>
           
         </div>
         <ul>
@@ -184,17 +184,18 @@ export default {
 html {
   display: flex;
   justify-content: center;
+  background-color: #ffffff;
 }
 
 body {
   font-family: 'Jost', sans-serif;
   margin: 0;
   width: 50%;
+  height: 100%;
 
   display: flex;
   justify-content: center;
 }
-
 
 header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -209,8 +210,11 @@ header {
 #input-area {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 200px;
-  margin: 10px 0;
+  max-width: 70%;
+  min-width: 70%;
+  margin: 0 auto;
 }
 
 #feed-cookie {
@@ -219,17 +223,19 @@ header {
   border-radius: 10px;
   padding: 1rem;
   text-align: center;
+  background-color: #f4f4f4;
+  min-width: 360px;
 }
 
-#feed-cookie {
+/* #feed-cookie {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 3rem;
   border-radius: 10px;
   padding: 1rem;
   text-align: center;
-}
+} */
 
-#feed-cookie h2 {
+h2 {
   font-size: 2rem;
   border-bottom: 4px solid #ccc;
   color: #ff944d;
@@ -275,8 +281,8 @@ header {
 #feed-cookie button {
   font: inherit;
   cursor: pointer;
-  border: 1px solid #ff0077;
-  background-color: #ff0077;
+  border: 1px solid #ff944d;
+  background-color: #ff944d;
   color: white;
   padding: 0.05rem 1rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
@@ -284,14 +290,21 @@ header {
 
 #feed-cookie button:hover,
 #feed-cookie button:active {
-  background-color: #ec3169;
-  border-color: #ec3169;
+  background-color: #f0bd9b;
+  border-color: #ff944d;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
-} h2 {
-  font-size: 2rem;
+} 
+
+#feed-cookie h2 {
+  font-size: 1.5rem;
   border-bottom: 4px solid #ccc;
   color: #ff944d;
   margin: 0 0 1rem 0;
+}
+
+#feed-cookie p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 #feed-cookie ul {
@@ -306,26 +319,28 @@ header {
   font-weight: bold;
   background-color: #ff944d;
   padding: 0.5rem;
-  color: #1f1f1f;
+  color: #ffffff;
   border-radius: 25px;
 }
 
 #feed-cookie input {
   font: inherit;
   border: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
 #feed-cookie input:focus {
   outline: none;
   border-color: #ff944d;
   background-color: #ebd9a8;
+  
 }
 
 #feed-cookie button {
   font: inherit;
   cursor: pointer;
-  border: 1px solid #ff0077;
-  background-color: #ff0077;
+  border: 1px solid #ff944d;
+  background-color: #ff944d;
   color: white;
   padding: 0.05rem 1rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
@@ -333,8 +348,12 @@ header {
 
 #feed-cookie button:hover,
 #feed-cookie button:active {
-  background-color: #ec3169;
-  border-color: #ec3169;
+  background-color: #f0bd9b;
+  border-color: #ff944d;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+
+#feed-cookie select {
+  margin-bottom: 20px;
 }
 </style>
