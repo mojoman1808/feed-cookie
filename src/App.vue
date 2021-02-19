@@ -3,9 +3,10 @@
         <header>
             <h1>Feed Cookie</h1>
         </header>
-        
-          <input type="text" v-model="enterUserValue">
+          <h2 v-if="timeDifference">{{ msToTime(this.maxTime - this.timeDifference) }}</h2>
+        <div id="input-area">
           <button @click="addUser">Neuer Cookie-Feeder</button>
+          <input type="text" v-model="enterUserValue">
           <!-- delet section -->
           <select v-model="deselectedUser">
             <option disabled value="null">Name auswählen</option>
@@ -17,24 +18,26 @@
           </select>
           <button @click="deletUser">Delet Cookie-Feeder</button>
        
-        <!-- <button @click="deselectedUser"></button> -->
-        <h2 v-if="timeDifference">{{ msToTime(this.maxTime - this.timeDifference) }}</h2>
-        <select v-model="selectedUser">
-          <option disabled value="null">Name auswählen</option>
-        <option
-          :value="user" 
-          :key="user.id"
-          v-for="user in users">{{ user.name }}
-        </option>
-        </select>
-        <button @click="addFeeding">Füttern</button>
+          <!-- <button @click="deselectedUser"></button> -->
+        
+          <select v-model="selectedUser">
+            <option disabled value="null">Name auswählen</option>
+          <option
+            :value="user" 
+            :key="user.id"
+            v-for="user in users">{{ user.name }}
+          </option>
+          </select>
+          <button @click="addFeeding">Füttern</button>
+          
+        </div>
         <ul>
-          <feed-cookie
-          v-for="feeding in feedings"
-          :feeding="feeding"
-          :key="feeding.hour">
-          </feed-cookie>
-        </ul>
+            <feed-cookie
+            v-for="feeding in feedings"
+            :feeding="feeding"
+            :key="feeding.hour">
+            </feed-cookie>
+          </ul>
     </section>
 </template>
 
@@ -65,13 +68,13 @@ export default {
             hour: 0,
             feedings: [],
             timeDifference: 0,
-            maxTime: 100000
+            maxTime: 18000000
         }
     },
     methods: {
         deletUser() {
           this.users = this.users.filter((user) => {
-            if (this.deselectedUser.id != user.id) {
+            if (this.deselectedUser && this.deselectedUser.id != user.id ) {
               console.log(user);
               return user;
             }
@@ -174,150 +177,164 @@ export default {
 
 
 <style>
-    * {
-    box-sizing: border-box;
-  }
-  
-  html {
-    font-family: 'Jost', sans-serif;
-  }
-  
-  body {
-    margin: 0;
-  }
-  
-  header {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    margin: 3rem;
-    border-radius: 10px;
-    padding: 1rem;
-    background-color: #ff944d;
-    color: white;
-    text-align: center;
-  }
+  * {
+  box-sizing: border-box;
+}
 
-  #feed-cookie {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    margin: 3rem;
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  #feed-cookie {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    margin: 3rem;
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-  }
-  
-  #feed-cookie h2 {
-    font-size: 2rem;
-    border-bottom: 4px solid #ccc;
-    color: #ff944d;
-    margin: 0 0 1rem 0;
-  }
+html {
+  display: flex;
+  justify-content: center;
+}
 
-  #feed-cookie#auswahl {
-    display: flex;
-    /* flex-direction: column; */
-    margin: 20px;
-    max-width: 200px;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  #feed-cookie ul {
-    list-style: none;
-    margin: 1rem 0;
-    padding: 0;
-  }
-  
-  #feed-cookie li {
-    margin: 1rem 0;
-    font-size: 1.25rem;
-    font-weight: bold;
-    background-color: #ff944d;
-    padding: 0.5rem;
-    color: #1f1f1f;
-    border-radius: 25px;
-  }
-  
-  #feed-cookie input {
-    font: inherit;
-    border: 1px solid #ccc;
-  }
-  
-  #feed-cookie input:focus {
-    outline: none;
-    border-color: #ff944d;
-    background-color: #d7fdeb;
-  }
-  
-  #feed-cookie button {
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid #ff0077;
-    background-color: #ff0077;
-    color: white;
-    padding: 0.05rem 1rem;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
-  }
-  
-  #feed-cookie button:hover,
-  #feed-cookie button:active {
-    background-color: #ec3169;
-    border-color: #ec3169;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
-  } h2 {
-    font-size: 2rem;
-    border-bottom: 4px solid #ccc;
-    color: #ff944d;
-    margin: 0 0 1rem 0;
-  }
-  
-  #feed-cookie ul {
-    list-style: none;
-    margin: 1rem 0;
-    padding: 0;
-  }
-  
-  #feed-cookie li {
-    margin: 1rem 0;
-    font-size: 1.25rem;
-    font-weight: bold;
-    background-color: #ff944d;
-    padding: 0.5rem;
-    color: #1f1f1f;
-    border-radius: 25px;
-  }
-  
-  #feed-cookie input {
-    font: inherit;
-    border: 1px solid #ccc;
-  }
-  
-  #feed-cookie input:focus {
-    outline: none;
-    border-color: #ff944d;
-    background-color: #ebd9a8;
-  }
-  
-  #feed-cookie button {
-    font: inherit;
-    cursor: pointer;
-    border: 1px solid #ff0077;
-    background-color: #ff0077;
-    color: white;
-    padding: 0.05rem 1rem;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
-  }
-  
-  #feed-cookie button:hover,
-  #feed-cookie button:active {
-    background-color: #ec3169;
-    border-color: #ec3169;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
-  }
+body {
+  font-family: 'Jost', sans-serif;
+  margin: 0;
+  width: 50%;
+
+  display: flex;
+  justify-content: center;
+}
+
+
+header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 3rem;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: #ff944d;
+  color: white;
+  text-align: center;
+}
+
+#input-area {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin: 10px 0;
+}
+
+#feed-cookie {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 3rem;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+
+#feed-cookie {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 3rem;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+
+#feed-cookie h2 {
+  font-size: 2rem;
+  border-bottom: 4px solid #ccc;
+  color: #ff944d;
+  margin: 0 0 1rem 0;
+}
+
+#feed-cookie#auswahl {
+  display: flex;
+  /* flex-direction: column; */
+  margin: 20px;
+  max-width: 200px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#feed-cookie ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+#feed-cookie li {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  background-color: #ff944d;
+  padding: 0.5rem;
+  color: #1f1f1f;
+  border-radius: 25px;
+}
+
+#feed-cookie input {
+  font: inherit;
+  border: 1px solid #ccc;
+}
+
+#feed-cookie input:focus {
+  outline: none;
+  border-color: #ff944d;
+  background-color: #d7fdeb;
+}
+
+#feed-cookie button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #ff0077;
+  background-color: #ff0077;
+  color: white;
+  padding: 0.05rem 1rem;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
+}
+
+#feed-cookie button:hover,
+#feed-cookie button:active {
+  background-color: #ec3169;
+  border-color: #ec3169;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+} h2 {
+  font-size: 2rem;
+  border-bottom: 4px solid #ccc;
+  color: #ff944d;
+  margin: 0 0 1rem 0;
+}
+
+#feed-cookie ul {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+#feed-cookie li {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  background-color: #ff944d;
+  padding: 0.5rem;
+  color: #1f1f1f;
+  border-radius: 25px;
+}
+
+#feed-cookie input {
+  font: inherit;
+  border: 1px solid #ccc;
+}
+
+#feed-cookie input:focus {
+  outline: none;
+  border-color: #ff944d;
+  background-color: #ebd9a8;
+}
+
+#feed-cookie button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid #ff0077;
+  background-color: #ff0077;
+  color: white;
+  padding: 0.05rem 1rem;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
+}
+
+#feed-cookie button:hover,
+#feed-cookie button:active {
+  background-color: #ec3169;
+  border-color: #ec3169;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
 </style>
